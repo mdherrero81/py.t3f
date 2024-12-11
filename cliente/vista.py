@@ -27,6 +27,12 @@ class Frame(tk.Frame):
         self.label_nombre = tk.Label(self, text="Genero: ")    
         self.label_nombre.config(font=('Arial',12,'bold'))    
         self.label_nombre.grid(row= 2, column=0,padx=10,pady=10)
+        self.label_nombre = tk.Label(self, text="Director: ")    
+        self.label_nombre.config(font=('Arial',12,'bold'))    
+        self.label_nombre.grid(row= 3, column=0,padx=10,pady=10)
+        self.label_nombre = tk.Label(self, text="Idioma: ")    
+        self.label_nombre.config(font=('Arial',12,'bold'))    
+        self.label_nombre.grid(row= 4, column=0,padx=10,pady=10)
     
     def input_form(self):
         self.nombre = tk.StringVar()    
@@ -51,6 +57,17 @@ class Frame(tk.Frame):
         self.entry_genero.config(width=25)    
         self.entry_genero.bind("<<ComboboxSelected>>")    
         self.entry_genero.grid(row= 2, column=1,padx=10,pady=10)
+
+        self.director = tk.StringVar()
+        self.entry_director = tk.Entry(self, textvariable=self.duracion)    
+        self.entry_director.config(width=50)    
+        self.entry_director.grid(row= 3, column=1,padx=10,pady=10) 
+        
+        self.idioma = tk.StringVar()
+        self.entry_idioma = tk.Entry(self, textvariable=self.duracion)    
+        self.entry_idioma.config(width=50)    
+        self.entry_idioma.grid(row= 4, column=1,padx=10,pady=10) 
+        
     
     def botones_principales(self):    
         self.btn_alta = tk.Button(self, text='Nuevo', command= self.habilitar_campos)    
@@ -69,6 +86,8 @@ class Frame(tk.Frame):
         pelicula = Peliculas(
             self.nombre.get(),
             self.duracion.get(),
+            self.director.get(),
+            self.idioma.get(),
             self.entry_genero.current()
         )
 
@@ -84,6 +103,9 @@ class Frame(tk.Frame):
         self.entry_nombre.config(state='normal')    
         self.entry_duracion.config(state='normal')    
         self.entry_genero.config(state='normal')    
+        self.entry_director(state='normal')    
+        self.entry_idioma(state='normal')    
+        
         self.btn_modi.config(state='normal')    
         self.btn_cance.config(state='normal')    
         self.btn_alta.config(state='disabled')
@@ -91,13 +113,17 @@ class Frame(tk.Frame):
     def bloquear_campos(self):    
         self.entry_nombre.config(state='disabled')    
         self.entry_duracion.config(state='disabled')    
-        self.entry_genero.config(state='disabled')    
+        self.entry_genero.config(state='disabled')
+        self.entry_director(state='disabled')
+        self.entry_idioma(state='disabled')    
         self.btn_modi.config(state='disabled')    
         self.btn_cance.config(state='disabled')    
         self.btn_alta.config(state='normal')
         self.nombre.set('')
         self.duracion.set('')
         self.entry_genero.current(0)
+        self.didector.set('')
+        self.idioma.set('')
         self.id_peli = None
     
     def mostrar_tabla(self):
@@ -106,7 +132,7 @@ class Frame(tk.Frame):
         
         self.lista_p.reverse()
 
-        self.tabla = ttk.Treeview(self, columns=('Nombre','Duración','Genero'))
+        self.tabla = ttk.Treeview(self, columns=('Nombre','Duración','Genero','Director','Idioma'))
         self.tabla.grid(row=4,column=0,columnspan=4, sticky='nse')
 
         self.scroll = ttk.Scrollbar(self, orient='vertical', command= self.tabla.yview)
@@ -117,6 +143,8 @@ class Frame(tk.Frame):
         self.tabla.heading('#1', text='Nombre')
         self.tabla.heading('#2', text='Duración')
         self.tabla.heading('#3', text='Genero')
+        self.tabla.heading('#4', text='Director')
+        self.tabla.heading('#5', text='Idioma')
 
         for p in self.lista_p:
             self.tabla.insert('',0,text=p[0],
@@ -137,11 +165,15 @@ class Frame(tk.Frame):
             self.nombre_peli = self.tabla.item(self.tabla.selection())['values'][0]
             self.dura_peli = self.tabla.item(self.tabla.selection())['values'][1]
             self.gene_peli = self.tabla.item(self.tabla.selection())['values'][2]
+            self.direc_peli = self.tabla.item(self.tabla.selection())['values'][3]
+            self.idioma_peli = self.tabla.item(self.tabla.selection())['values'][4]
 
             self.habilitar_campos()
             self.nombre.set(self.nombre_peli)
             self.duracion.set(self.dura_peli)
             self.entry_genero.current(self.generos.index(self.gene_peli))
+            self.director.set(self.direc_peli)
+            self.idioma.set(self.idioma_peli)
         except:
             pass
     
