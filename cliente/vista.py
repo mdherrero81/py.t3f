@@ -59,12 +59,12 @@ class Frame(tk.Frame):
         self.entry_genero.grid(row= 2, column=1,padx=10,pady=10)
 
         self.director = tk.StringVar()
-        self.entry_director = tk.Entry(self, textvariable=self.duracion)    
+        self.entry_director = tk.Entry(self, textvariable=self.director)    
         self.entry_director.config(width=50)    
         self.entry_director.grid(row= 3, column=1,padx=10,pady=10) 
         
         self.idioma = tk.StringVar()
-        self.entry_idioma = tk.Entry(self, textvariable=self.duracion)    
+        self.entry_idioma = tk.Entry(self, textvariable=self.idioma)    
         self.entry_idioma.config(width=50)    
         self.entry_idioma.grid(row= 4, column=1,padx=10,pady=10) 
         
@@ -103,8 +103,8 @@ class Frame(tk.Frame):
         self.entry_nombre.config(state='normal')    
         self.entry_duracion.config(state='normal')    
         self.entry_genero.config(state='normal')    
-        self.entry_director(state='normal')    
-        self.entry_idioma(state='normal')    
+        self.entry_director.config(state='normal')    
+        self.entry_idioma.config(state='normal')    
         
         self.btn_modi.config(state='normal')    
         self.btn_cance.config(state='normal')    
@@ -114,15 +114,15 @@ class Frame(tk.Frame):
         self.entry_nombre.config(state='disabled')    
         self.entry_duracion.config(state='disabled')    
         self.entry_genero.config(state='disabled')
-        self.entry_director(state='disabled')
-        self.entry_idioma(state='disabled')    
+        self.entry_director.config(state='disabled')
+        self.entry_idioma.config(state='disabled')    
         self.btn_modi.config(state='disabled')    
         self.btn_cance.config(state='disabled')    
         self.btn_alta.config(state='normal')
         self.nombre.set('')
         self.duracion.set('')
         self.entry_genero.current(0)
-        self.didector.set('')
+        self.director.set('')
         self.idioma.set('')
         self.id_peli = None
     
