@@ -51,7 +51,7 @@ def guardar_peli(pelicula):
 
     sql= f'''
         INSERT INTO Peliculas(Nombre,Duracion,Genero)
-        VALUES('{pelicula.nombre}','{pelicula.duracion}','{pelicula.genero}','{pelicula.director}','{pelicula.idioma}');
+        VALUES('{pelicula.nombre}','{pelicula.duracion}',{pelicula.genero},'{pelicula.director}','{pelicula.idioma}');
 '''
     try:
         conn.cursor.execute(sql)
@@ -99,7 +99,7 @@ def editar_peli(pelicula, id):
 
     sql= f'''
         UPDATE Peliculas
-        SET Nombre = '{pelicula.nombre}', Duracion = '{pelicula.duracion}', Genero = '{pelicula.genero}', Director = '{pelicula.director}', Idioma = '{pelicula.idioma}'
+        SET Nombre = '{pelicula.nombre}', Duracion = '{pelicula.duracion}', Genero = {pelicula.genero}, Director = '{pelicula.director}', Idioma = '{pelicula.idioma}'
         WHERE ID = {id}
         ;
 '''
